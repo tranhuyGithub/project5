@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>GiveHope Donation</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../../vendors/base/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../css/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="../../images/favicon.png" />
+    <script>
+        function myFunction() {
+    document.getElementsByClassName("Banner")[0].style.display = 'none';
+}
+    </script>
+</head>
+
+<body>
+<div class="container-scroller">
+    <div th:if="${tempDonation != null } "  class=" card  text-center align-items-center col-md-4 Banner" id="proBanner">
+        <div class="  col-md-6 align-items-center center">
+            <div class="card-body card-body-padding d-flex align-items-center justify-content-between">
+                <div class="ps-lg-1">
+                    <div class="d-flex align-items-center justify-content-between">
+
+                        <div class="modal-body">
+
+                            <h3 class="alert alert-primary" role="alert" th:text="${success}" th:if="${success} "></h3>
+                            <p class="mb-0 font-weight-medium me-3 buy-now-text">You transaction Id: <span   th:text="${tempDonation.getId()}" ></span></p>
+                            <p class="mb-0 font-weight-medium me-3 buy-now-text">Your name public: <span   th:text="${session.accountCr.getUserName()}" ></span></p>
+                            <p class="mb-0 font-weight-medium me-3 buy-now-text">Charity name : <span   th:text="${charity.getName()}" ></span> </p>
+                            <p class="mb-0 font-weight-medium me-3 buy-now-text">Money donate: <span th:text="${tempDonation.getMoney()}" ></span> by <span th:text="${tempDonation.getPayMethod()}" ></span></p>
+                            <p class="mb-0 font-weight-medium me-3 buy-now-text">Thank you for your donation!!!</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-between">
+                    <button onclick="myFunction()" id="bannerClose" class="btn border-0 p-0">
+                        <i class="ti-close text-white me-0"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth lock-full-bg">
+            <div class="row w-100">
+                <div class="col-lg-8 mx-auto">
+                    <div class="auth-form-transparent text-left p-5 text-center">
+
+                        <div class=" card container .container-fluid col-sm-6">
+
+                            <!--Modal notification donate successfully-->
+
+                            <div id="intro" class="p-5 text-center bg-light">
+                                <h1 class="mb-3 h2 " >Donate form</h1>
+
+                                <div class="col-md-12" aligin ="center">
+                                    <p th:text="${charity.getName()}"></p>
+                                    <br />
+
+                                    <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+                                </div>
+                            </div>
+
+                            <form class="row g-3" th:action="@{/donate(id=${charity.getId()})}" th:object="${eachDonation}" method="post">
+                                <div class="col-md-6">
+                                    <label  class="form-label">Name public: <span th:text="${username}"></span></label>
+
+                                </div>
+                                <div class="col-12" >
+                                    <label  class="form-label">Money</label>
+                                    <input type="number" class="form-control"  placeholder="VND" field="*{money}"  name="money"/>
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('money')}" th:errors="*{money}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Payment method</label>
+                                    <select class="form-select"  field="*{payMethod}" name="payMethod" >
+                                        <option selected value="Cash" >Cash</option>
+                                        <option value="Paypal">Paypal</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Donate</button>
+                                    <a class="btn btn-primary" th:href="@{/charityDetail(id=${charity.getId()})}">Cancel</a>
+
+                                </div>
+                            </form>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+</div>
+
+<!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="../../vendors/base/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- inject:js -->
+    <script src="../../js/off-canvas.js"></script>
+    <script src="../../js/hoverable-collapse.js"></script>
+    <script src="../../js/template.js"></script>
+    <script src="../../js/todolist.js"></script>
+    <!-- endinject -->
+
+</body>
+
+</html>

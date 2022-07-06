@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>GiveHope Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="vendors/base/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fullcalendar.css">
+
+    <!-- endinject -->
+    <link rel="shortcut icon" href="images/favicon.png" />
+</head>
+<body>
+<div class="container-scroller">
+    <div  class="row p-0 m-0 proBanner" id="proBanner">
+
+    </div>
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+            <a class="navbar-brand brand-logo me-5" th:href="@{/}">GIVEHOPE</a>
+            <a class="navbar-brand brand-logo-mini" th:href="@{/}">GH</a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+            <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                <span class="ti-view-list"></span>
+            </button>
+
+
+            <ul class="navbar-nav navbar-nav-right">
+                <li class="nav-item dropdown me-1">
+                    <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-bs-toggle="dropdown">
+                        <i class="ti-email mx-0"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="messageDropdown">
+                        <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
+                        <a class="dropdown-item">
+                            <div class="item-thumbnail">
+                                <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
+                            </div>
+                            <div class="item-content flex-grow">
+                                <h6 class="ellipsis font-weight-normal">David Grey
+                                </h6>
+                                <p class="font-weight-light small-text text-muted mb-0">
+                                    The meeting is cancelled
+                                </p>
+                            </div>
+                        </a>
+                        <a class="dropdown-item">
+                            <div class="item-thumbnail">
+                                <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
+                            </div>
+                            <div class="item-content flex-grow">
+                                <h6 class="ellipsis font-weight-normal">Tim Cook
+                                </h6>
+                                <p class="font-weight-light small-text text-muted mb-0">
+                                    New product launch
+                                </p>
+                            </div>
+                        </a>
+                        <a class="dropdown-item">
+                            <div class="item-thumbnail">
+                                <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
+                            </div>
+                            <div class="item-content flex-grow">
+                                <h6 class="ellipsis font-weight-normal"> Johnson
+                                </h6>
+                                <p class="font-weight-light small-text text-muted mb-0">
+                                    Upcoming board meeting
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+                        <i class="ti-bell mx-0"></i>
+                        <span class="count"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="notificationDropdown">
+                        <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                        <a class="dropdown-item">
+                            <div class="item-thumbnail">
+                                <div class="item-icon bg-success">
+                                    <i class="ti-info-alt mx-0"></i>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h6 class="font-weight-normal">Application Error</h6>
+                                <p class="font-weight-light small-text mb-0 text-muted">
+                                    Just now
+                                </p>
+                            </div>
+                        </a>
+                        <a class="dropdown-item">
+                            <div class="item-thumbnail">
+                                <div class="item-icon bg-warning">
+                                    <i class="ti-settings mx-0"></i>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h6 class="font-weight-normal">Settings</h6>
+                                <p class="font-weight-light small-text mb-0 text-muted">
+                                    Private message
+                                </p>
+                            </div>
+                        </a>
+                        <a class="dropdown-item">
+                            <div class="item-thumbnail">
+                                <div class="item-icon bg-info">
+                                    <i class="ti-user mx-0"></i>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h6 class="font-weight-normal">New user registration</h6>
+                                <p class="font-weight-light small-text mb-0 text-muted">
+                                    2 days ago
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item nav-profile dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
+                        <img src="images/faces/face9.jpg" alt="profile"/>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item" th:href="@{/profile}" >
+                            <i class="ti-settings text-primary"></i>
+                            Profile
+                        </a>
+                        <a th:if="${session.accountCr.getRole() == 2}" class="dropdown-item" th:href="@{/dashboard}">
+                            <i class="ti-server text-primary"></i>
+                            Dashboard
+                        </a>
+                        <a class="dropdown-item" th:href="@{/logout}" >
+                            <i class="ti-power-off text-primary"></i>
+                            Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                <span class="ti-view-list"></span>
+            </button>
+        </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/dashboard}">
+                        <i class="ti-shield menu-icon"></i>
+                        <span class="menu-title">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/manageCharity}">
+                        <i class="ti-write menu-icon"></i>
+                        <span class="menu-title">Charity manage</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  th:href="@{/manageAccount}" >
+                        <i class="ti-user menu-icon"></i>
+                        <span class="menu-title">Account manage</span>
+
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/manageDonation}">
+                        <i class="ti-pie-chart menu-icon"></i>
+                        <span class="menu-title">Donation manage</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/manageNews}">
+                        <i class="ti-layout-list-post menu-icon"></i>
+                        <span class="menu-title">News manage</span>
+                    </a>
+                </li>
+
+
+            </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 grid-margin">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4 class="font-weight-bold mb-0">GiveHope Dashboard</h4>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-primary btn-icon-text btn-rounded">
+                                    <i class="ti-clipboard btn-icon-prepend"></i>Report
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="intro" class="p-5 col-9 text-center bg-light">
+                    <h1 class="mb-3 h2 " >Create charity</h1>
+                </div>
+
+                <div class="col-9">
+                <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+                <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+                </div>
+                <div class="col-9 grid-margin stretch-card">
+
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h4 class="card-title">Form create charity</h4>
+                            <p class="card-description">
+
+                            </p>
+                            <form class="forms-sample" th:action="@{/addCharity}" th:object="${charity}" enctype="multipart/form-data" method="post">
+                                <div class="form-group">
+                                    <label for="exampleInputName1">Name</label>
+                                    <input type="text" class="form-control" id="exampleInputName1" placeholder="Name charity" th:field="*{name}" >
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" />
+
+                                </div>
+                                <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="datestart">Date Start</label>
+                                    <input type="text" class="form-control" id="dateStart" placeholder="YYYY-MM-DD" th:field="*{dateStart}">
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('dateStart')}" th:errors="*{dateStart}" />
+
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="dateend">Date End</label>
+                                    <input type="text" class="form-control" id="dateend" placeholder="YYYY-MM-DD" th:field="*{dateEnd}" name="dateEnd">
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('dateEnd')}" th:errors="*{dateEnd}" />
+
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleTextarea1">Content</label>
+                                    <textarea class="form-control" id="exampleTextarea1" rows="12" th:field="*{content}"></textarea>
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('content')}" th:errors="*{content}" />
+
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="money">Money need to charity</label>
+                                    <input type="number" class="form-control" id="money" placeholder="VND" th:field="*{money}" name="money">
+                                    <p class="alert alert-danger" th:if="${#fields.hasErrors('money')}" th:errors="*{money}" />
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                    <label class="">Pay method</label>
+                                        <select class="form-select"  th:field="*{payMethod}" name="payMethod" >
+                                            <option selected value="Cash,Paypal" >Cash,Paypal</option>
+                                            <option value="Paypal">Paypal</option>
+                                            <option value="Cash">Cash</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="">Status</label>
+                                        <select class="form-select"  th:field="*{status}" name="Status" >
+                                            <option selected value= 1 >Active</option>
+                                            <option value= 2 >Non active</option>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Image upload</label>
+                                    <input type="file"  name="image" accept="image/png, image/jpeg">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary me-2">Create</button>
+                                <a th:href="@{/manageCharity}"><p class="btn btn-light" >Cancel</p></a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            <footer class="footer">
+                <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © <a href="https://www.bootstrapdash.com/" target="_blank">bootstrapdash.com </a>2021</span>
+                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Only the best <a href="https://www.bootstrapdash.com/" target="_blank"> Bootstrap dashboard </a> templates</span>
+                </div>
+            </footer>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<!-- plugins:js -->
+<script src="vendors/base/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page-->
+<script src="vendors/chart.js/Chart.min.js"></script>
+<script src="js/jquery.cookie.js" type="text/javascript"></script>
+<!-- End plugin js for this page-->
+<!-- inject:js -->
+<script src="js/off-canvas.js"></script>
+<script src="js/hoverable-collapse.js"></script>
+<script src="js/template.js"></script>
+<script src="js/fullcalendar.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="js/dashboard.js"></script>
+<!-- End custom js for this page-->
+
+</body>
+
+</html>
+

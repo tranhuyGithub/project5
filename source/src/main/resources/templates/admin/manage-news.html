@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>GiveHope Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="vendors/base/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="css/style.css">
+    <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></script>
+    <link rel="stylesheet" href="css/fullcalendar.css">
+
+    <!-- endinject -->
+    <link rel="shortcut icon" href="images/favicon.png" />
+    <script>
+        function showConfirmModelDialog(id, name){
+        $('#yesOption').attr('href', '/deleteNews?id='+(id));
+       $('#id').text(id);
+
+        $('#confirmationId').modal('show');
+    }
+
+               function showConfirm(){
+               var ids = $('input:checkbox:checked.checkedId').map(function () {
+                 return this.value;
+                }).get();
+
+                if(ids.length >0 ){
+                $('#ids').text(ids);
+                $('#deleteConfirm').attr('href', '/delMultiNews/'+ids);
+
+                 $('#confirm-submit').modal('show');}
+
+
+
+             };
+    </script>
+</head>
+<body>
+<div class="container-scroller">
+
+    <div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button  type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" >Confirm Delete</h4>
+                </div>
+
+                <div class="modal-body">
+                    <p>You are about to delete this id = <span id="ids"  ></span> </p>
+                    <p>Do you want to proceed?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <a id="deleteConfirm"  class="btn btn-danger btn-ok">Delete</a>
+
+                    <button  type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+            <a class="navbar-brand brand-logo me-5" th:href="@{/}">GIVEHOPE</a>
+            <a class="navbar-brand brand-logo-mini" th:href="@{/}">GIVEHOPE</a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+            <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                <span class="ti-view-list"></span>
+            </button>
+
+            <ul class="navbar-nav mr-lg-2">
+                <form th:action="@{/searchNews}" method="post">
+                    <li class="nav-item nav-search d-none d-lg-block">
+                        <div class="input-group">
+                            <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+                                <button type="submit" class="input-group-text" id="search">
+                                    <i class="ti-search"></i>
+                                </button>
+                            </div>
+                            <input name="keyword" th:value="${keyword}" type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
+                        </div>
+                    </li>
+                </form>
+            </ul>
+            <ul class="navbar-nav navbar-nav-right">
+                <li class="nav-item dropdown me-1">
+                    <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-bs-toggle="dropdown">
+                        <i class="ti-email mx-0"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="messageDropdown">
+                        <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
+                        <a class="dropdown-item">
+                            <div class="item-thumbnail">
+                                <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
+                            </div>
+                            <div class="item-content flex-grow">
+                                <h6 class="ellipsis font-weight-normal">David Grey
+                                </h6>
+                                <p class="font-weight-light small-text text-muted mb-0">
+                                    The meeting is cancelled
+                                </p>
+                            </div>
+                        </a>
+                        <a class="dropdown-item">
+                            <div class="item-thumbnail">
+                                <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
+                            </div>
+                            <div class="item-content flex-grow">
+                                <h6 class="ellipsis font-weight-normal">Tim Cook
+                                </h6>
+                                <p class="font-weight-light small-text text-muted mb-0">
+                                    New product launch
+                                </p>
+                            </div>
+                        </a>
+                        <a class="dropdown-item">
+                            <div class="item-thumbnail">
+                                <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
+                            </div>
+                            <div class="item-content flex-grow">
+                                <h6 class="ellipsis font-weight-normal"> Johnson
+                                </h6>
+                                <p class="font-weight-light small-text text-muted mb-0">
+                                    Upcoming board meeting
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+                        <i class="ti-bell mx-0"></i>
+                        <span class="count"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="notificationDropdown">
+                        <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                        <a class="dropdown-item">
+                            <div class="item-thumbnail">
+                                <div class="item-icon bg-success">
+                                    <i class="ti-info-alt mx-0"></i>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h6 class="font-weight-normal">Application Error</h6>
+                                <p class="font-weight-light small-text mb-0 text-muted">
+                                    Just now
+                                </p>
+                            </div>
+                        </a>
+                        <a class="dropdown-item">
+                            <div class="item-thumbnail">
+                                <div class="item-icon bg-warning">
+                                    <i class="ti-settings mx-0"></i>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h6 class="font-weight-normal">Settings</h6>
+                                <p class="font-weight-light small-text mb-0 text-muted">
+                                    Private message
+                                </p>
+                            </div>
+                        </a>
+                        <a class="dropdown-item">
+                            <div class="item-thumbnail">
+                                <div class="item-icon bg-info">
+                                    <i class="ti-user mx-0"></i>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h6 class="font-weight-normal">New user registration</h6>
+                                <p class="font-weight-light small-text mb-0 text-muted">
+                                    2 days ago
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item nav-profile dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
+                        <img src="images/faces/face9.jpg" alt="profile"/>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item" th:href="@{/profile}" >
+                            <i class="ti-settings text-primary"></i>
+                            Profile
+                        </a>
+                        <a th:if="${session.accountCr.getRole() == 2}" class="dropdown-item" th:href="@{/dashboard}">
+                            <i class="ti-server text-primary"></i>
+                            Dashboard
+                        </a>
+                        <a class="dropdown-item" th:href="@{/logout}" >
+                            <i class="ti-power-off text-primary"></i>
+                            Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                <span class="ti-view-list"></span>
+            </button>
+        </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/dashboard}">
+                        <i class="ti-shield menu-icon"></i>
+                        <span class="menu-title">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/manageCharity}">
+                        <i class="ti-write menu-icon"></i>
+                        <span class="menu-title">Charity manage</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  th:href="@{/manageAccount}" >
+                        <i class="ti-user menu-icon"></i>
+                        <span class="menu-title">Account manage</span>
+
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/manageDonation}">
+                        <i class="ti-pie-chart menu-icon"></i>
+                        <span class="menu-title">Donation manage</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/manageNews}">
+                        <i class="ti-layout-list-post menu-icon"></i>
+                        <span class="menu-title">News manage</span>
+                    </a>
+                </li>
+
+
+            </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 grid-margin">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4 class="font-weight-bold mb-0">GiveHope Dashboard</h4>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-primary btn-icon-text btn-rounded">
+                                    <i class="ti-clipboard btn-icon-prepend"></i>Report
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="intro" class="p-5 text-center bg-light">
+                    <h1 class="mb-3 h2 " >News Records</h1>
+                </div>
+
+                <div class="row">
+                    <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+                    <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+                    <div class="col-md-12 grid-margin">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4 class="font-weight-bold mb-0"></h4>
+                            </div>
+
+                            <div class="template-demo">
+                                <a th:href="@{/newNews}">
+                                    <button  type="button" class="btn btn-info btn-icon-text">
+                                        Add news
+                                        <i class="ti-upload btn-icon-append"></i>
+                                    </button></a>
+
+
+
+                                <a th:href="@{/manageNews}">
+                                    <button type="button" class="btn btn-warning btn-icon-text">
+                                        <i class="ti-reload btn-icon-prepend"></i>
+                                        Reload
+                                    </button></a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">List News</h4>
+                                <p class="card-description">
+                                <div class="col-sm-2"  th:if="${categoryPage.hasContent()}" >
+                                    Total News: [[${totalItems}]]
+                                </div>
+                                </p>
+
+                                <div class="table-responsive col-lg-12 ">
+                                    <div class="row" th:if = "${!categoryPage.hasContent()}">
+                                        <div class="col">
+                                            <div class="alert alert-danger" role="alert">
+                                                <strong>No news found!</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form action=""  id="formField" name="formField" method="get">
+
+                                        <input onclick="showConfirm()"  type="button" class="btn btn-danger btn-icon-text"  data-target="#confirm-submit" value="Delete record"  >
+
+
+                                        <table id="tableId" class="table table-striped col-lg-12"
+                                           th:if="${categoryPage.hasContent()}">
+                                        <thead>
+                                        <tr>
+                                            <th>
+
+                                            </th>
+                                            <th>
+                                                No
+                                            </th>
+                                            <th>
+                                                ID
+                                            </th>
+                                            <th >
+                                                Title
+                                            </th>
+                                            <th>
+                                                Date Create
+                                            </th>
+                                            <th>
+                                                Count View
+                                            </th>
+
+                                            <th>
+                                                Status
+                                            </th>
+                                            <th>
+                                                Action
+                                            </th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="news, iterStart : ${categoryPage.content}" >
+                                            <td>
+                                                <input class="checkedId"  type="checkbox" name="cid" th:value="${news.getId()}"  />
+                                            </td>
+                                            <th th:text ="${iterStart.count}">
+                                                No
+                                            </th>
+                                            <td  th:text="${news.getId()}">
+                                                ID
+                                            </td>
+                                            <td  th:text="${news.getTitle()}">
+                                                Name
+
+                                            </td>
+                                            <td  th:text="${news.getNewsDate()}">
+                                                Date create
+                                            </td>
+
+                                            <td  th:text="${news.getCountView()}">
+                                                CountViews
+                                            </td>
+
+                                            <td >
+                                                <div th:if="${news.getStatus() == 1}"> Active</div>
+                                                <div th:unless="${news.getStatus() == 1}"><p>Non Active</p></div>
+
+                                            </td>
+                                            <td>
+                                                <a th:href="@{/editNews(id=${news.getId()})}" type="button" class="btn btn-primary btn-icon-text">
+                                                    <i class="ti-pencil btn-icon-prepend"></i>
+
+                                                </a>
+
+
+                                                <a th:data-id="${news.getId()}"
+                                                   onclick="showConfirmModelDialog(this.getAttribute('data-id'))"
+                                                   type="button" class=" btn-delete btn btn-danger btn-icon-text">
+                                                    <i class=" ti-trash btn-icon-prepend"></i>
+
+
+
+                                                </a>
+
+
+                                            </td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                    </form>
+                                    <!-- Modal confirm delete-->
+
+                                    <div class="modal fade" id="confirmationId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title" id="myModalLabel1">Confirm Delete</h4>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <p>You are about to delete this id = <span id="id"  ></span> </p>
+                                                    <p>Do you want to proceed?</p>
+                                                    <p class="debug-url"></p>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <a id="yesOption" th:href="@{/deleteCharity}" class="btn btn-danger btn-ok">Delete</a>
+
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" row card-footer text-muted">
+
+                                        <div th:if="${totalPages > 1}">
+                                            <div class="row col-sm-10">
+
+                                                <div class="col-sm-2">
+                                            <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                                <a th:if="${currentPage != i}" th:href="@{|${baseUrl}|(keyword = ${keyword} , page=${i})}">[[${i}]]</a>
+                                                <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                                                </span>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <a th:if="${currentPage < totalPages}" th:href="@{|${baseUrl}|(keyword = ${keyword} , page=${currentPage + 1})}">Next</a>
+                                                    <span th:unless="${currentPage < totalPages}">Next</span>
+                                                </div>
+
+                                                <div class="col-sm-1">
+                                                    <a th:if="${currentPage < totalPages}" th:href="@{|${baseUrl}|(keyword = ${keyword} , page=${totalPages})}">Last</a>
+                                                    <span th:unless="${currentPage < totalPages}">Last</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            <footer class="footer">
+                <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © <a href="https://www.bootstrapdash.com/" target="_blank">bootstrapdash.com </a>2021</span>
+                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Only the best <a href="https://www.bootstrapdash.com/" target="_blank"> Bootstrap dashboard </a> templates</span>
+                </div>
+            </footer>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<!-- plugins:js -->
+<script src="vendors/base/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page-->
+<script src="vendors/chart.js/Chart.min.js"></script>
+<script src="js/jquery.cookie.js" type="text/javascript"></script>
+<!-- End plugin js for this page-->
+<!-- inject:js -->
+<script src="js/off-canvas.js"></script>
+<script src="js/hoverable-collapse.js"></script>
+<script src="js/template.js"></script>
+
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="js/dashboard.js"></script>
+
+<!-- End custom js for this page-->
+
+</body>
+
+</html>
+

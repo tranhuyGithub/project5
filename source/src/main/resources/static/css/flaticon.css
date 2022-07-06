@@ -1,0 +1,109 @@
+  /*
+    Flaticon icon font: Flaticon
+    Creation date: 25/07/2018 10:39
+    */
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("../fonts/flaticon/font/Flaticon.eot");
+  src: url("../fonts/flaticon/font/Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/flaticon/font/Flaticon.woff") format("woff"),
+       url("../fonts/flaticon/font/Flaticon.ttf") format("truetype"),
+       url("../fonts/flaticon/font/Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("../fonts/flaticon/font/Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+  font-family: Flaticon;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-first-aid-kit:before { content: "\f100"; }
+.flaticon-donation:before { content: "\f101"; }
+.flaticon-donate:before { content: "\f102"; }
+.flaticon-people:before { content: "\f103"; }
+.flaticon-charity:before { content: "\f104"; }
+.flaticon-heart-box:before { content: "\f105"; }
+
+@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+
+.bodymodal {
+    font-family: 'Rubik', sans-serif;
+    background: #eee;
+}
+
+.containermodal{
+    margin-top:270px !important;
+}
+
+.buttonmodal{
+    font-size: calc(12px + (16 - 12) * ((100vw - 360px) / (1600 - 300))) !important;
+}
+
+ p {
+    font-size: calc(13px + (16 - 13) * ((100vw - 360px) / (1600 - 300))) !important;
+}
+
+
+.buttonmodal:focus {
+    box-shadow: none !important;
+    outline-width: 0;
+}
+
+.cardmodal{
+    border-radius :12px;
+    width: calc(500px + 10 * ((100vw - 320px) / 680)) ;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.8) ;
+}
+
+.cardmodal-header{
+    border-radius :12px !important;
+}
+
+.modal-body .btn-danger{
+    border-radius: 11px ;
+    box-shadow:  0px 5px 5px rgba(0, 0, 0, 0.2) ;
+}
+ .btn-light1{
+     background: transparent !important;
+     border:0px !important;
+ }
+
+ .btn-light1:hover{
+    border-color:#fff !important;
+ }
+
+ .btn-light1:active{
+    border-color:#fff !important;
+ }
+
+@media (max-width: 526px) {
+    .card{
+        width: unset;
+    } 
+}
+
+modal1{
+    font-size: 30px !important;
+}
+
+.modal-content{
+    background: transparent !important;
+}
